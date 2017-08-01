@@ -1,6 +1,7 @@
 package com.jennbowers.moviereviewer.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "movie")
@@ -12,6 +13,9 @@ public class Movie {
     private String genre;
     private String imdblink;
     private String releasedate;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
     public Movie() {}
 
