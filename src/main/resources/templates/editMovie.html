@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Add a New Movie</title>
+    <title>Title</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}"/>
 </head>
 <body class="container">
@@ -10,37 +10,38 @@
         <span><a href="/">Home</a></span>
         <span><a href="/addMovie">Add a Movie</a></span>
     </nav>
-    <h1>Add a new movie here!</h1>
-    <form class="form-horizontal" action="/addMovie" method="post">
+    <h1>Edit movie here</h1>
+    <form class="form-horizontal" th:action="'/edit/' + ${movie.id}" method="post">
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Film Title</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="title" id="title"/>
+                <input type="text" class="form-control" name="title" id="title" th:value="${movie.title}"/>
             </div>
         </div>
         <div class="form-group">
             <label for="genre" class="col-sm-2 control-label">Genres</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="genre" id="genre"/>
+                <input type="text" class="form-control" name="genre" id="genre" th:value="${movie.genre}"/>
             </div>
         </div>
         <div class="form-group">
             <label for="imdblink" class="col-sm-2 control-label">IMDB Link</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="imdblink" id="imdblink"/>
+                <input type="text" class="form-control" name="imdblink" id="imdblink" th:value="${movie.imdbLink}"/>
             </div>
         </div>
         <div class="form-group">
             <label for="releasedate" class="col-sm-2 control-label">Release Date</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="releasedate" id="releasedate"/>
+                <input type="text" class="form-control" name="releasedate" id="releasedate" th:value="${movie.releaseDate}"/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" class="btn btn-default" value="Submit Movie"/>
+                <input type="submit" class="btn btn-default" value="Submit Changes"/>
             </div>
         </div>
     </form>
+
 </body>
 </html>

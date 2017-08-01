@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}"/>
+</head>
+<body class="container">
+    <nav>
+        <span><a href="/">Home</a></span>
+        <span><a href="/addMovie">Add a Movie</a></span>
+    </nav>
+    <h1>see all the details and reviews for this movie</h1>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="${movie.title}"></h3>
+        </div>
+        <div class="panel-body">
+            <div th:text="${movie.genre}"></div>
+            <div th:text="${movie.imdbLink}"></div>
+            <div th:text="${movie.releaseDate}"></div>
+            <a th:href="'/edit/' + @{${movie.id}}">Edit Movie</a>
+        </div>
+    </div>
+</body>
+</html>

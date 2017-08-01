@@ -7,8 +7,8 @@
 </head>
 <body class="container">
     <nav>
-        <span><a href="#">Home</a></span>
-        <span><a href="addMovie.html">Add a Movie</a></span>
+        <span><a href="/">Home</a></span>
+        <span><a href="/addMovie">Add a Movie</a></span>
     </nav>
     <h1>Welcome to the movie reviewer</h1>
     <div th:each="movie : ${movies}">
@@ -20,6 +20,8 @@
                 <div th:text="${movie.genre}"></div>
                 <div th:text="${movie.imdbLink}"></div>
                 <div th:text="${movie.releaseDate}"></div>
+                <a th:href="'/edit/' + @{${movie.id}}">Edit Movie</a>
+                <a th:href="'/movie/' + @{${movie.id}}">See Reviews</a>
             </div>
         </div>
     </div>
