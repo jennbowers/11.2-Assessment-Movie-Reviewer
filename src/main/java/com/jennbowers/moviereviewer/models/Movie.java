@@ -10,17 +10,16 @@ public class Movie {
     private long id;
     private String title;
     private String genre;
-    private String imdbLink;
-    private String releaseDate;
+    private String imdblink;
+    private String releasedate;
 
     public Movie() {}
 
-    public Movie(long id, String title, String genre, String imdbLink, String releaseDate) {
-        this.id = id;
+    public Movie(String title, String genre, String imdblink, String releasedate) {
         this.title = title;
         this.genre = genre;
-        this.imdbLink = imdbLink;
-        this.releaseDate = releaseDate;
+        this.imdblink = imdblink;
+        this.releasedate = releasedate;
     }
 
     public long getId() {
@@ -48,18 +47,18 @@ public class Movie {
     }
 
     public String getImdbLink() {
-        return imdbLink;
+        return imdblink;
     }
 
-    public void setImdbLink(String imdbLink) {
-        this.imdbLink = imdbLink;
+    public void setImdbLink(String imdblink) {
+        this.imdblink = imdblink;
     }
 
     public String getReleaseDate() {
-        return releaseDate;
+        return releasedate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleasedate(String releasedate) {
+        this.releasedate = releasedate;
     }
 }
