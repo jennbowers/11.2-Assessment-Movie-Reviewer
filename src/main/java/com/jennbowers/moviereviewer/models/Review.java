@@ -10,7 +10,7 @@ public class Review {
     private long id;
     private String reviewername;
     private String rating;
-    private int reviewerage;
+    private Integer reviewerage;
     private String reviewergender;
     private String revieweroccupation;
 
@@ -20,7 +20,7 @@ public class Review {
 
     public Review() {}
 
-    public Review(String reviewername, String rating, int reviewerage, String reviewergender, String revieweroccupation, Movie movie) {
+    public Review(String reviewername, String rating, Integer reviewerage, String reviewergender, String revieweroccupation, Movie movie) {
         this.reviewername = reviewername;
         this.rating = rating;
         this.reviewerage = reviewerage;
@@ -53,11 +53,11 @@ public class Review {
         this.rating = rating;
     }
 
-    public int getReviewerage() {
+    public Integer getReviewerage() {
         return reviewerage;
     }
 
-    public void setReviewerage(int reviewerage) {
+    public void setReviewerage(Integer reviewerage) {
         this.reviewerage = reviewerage;
     }
 

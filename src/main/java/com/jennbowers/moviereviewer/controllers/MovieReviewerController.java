@@ -83,7 +83,13 @@ public class MovieReviewerController {
                               @RequestParam("reviewerage") String reviewerage,
                               @RequestParam("reviewergender") String reviewergender,
                               @RequestParam("revieweroccupation") String revieweroccupation) {
-        int reviewerAgeInt = Integer.parseInt(reviewerage);
+        Integer reviewerAgeInt;
+        if (reviewerage.equals("")) {
+            reviewerAgeInt = null;
+
+        } else {
+            reviewerAgeInt = Integer.parseInt(reviewerage);
+        }
         Movie movie = repo.findOne(movieId);
         Review newReview = new Review(reviewername, rating, reviewerAgeInt, reviewergender, revieweroccupation, movie);
         reviewRepo.save(newReview);
