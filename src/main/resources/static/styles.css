@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 70px;
+}
+
+.movie-panel {
+    height: 250px;
+}
+
+.rating-header {
+    font-weight: 600;
+}
+
+hr {
+    width: 100%;
+}
+
+.review, .write-review {
+    padding-right: 0px;
+    float: right;
+    width: 95%;
+}
