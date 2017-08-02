@@ -109,19 +109,61 @@
         </div>
     </div>
     <!--reviews-->
-    <!--<ul>-->
-        <!--<li th:each="review : ${movie.reviews}"></li>-->
-    <!--</ul>-->
-    <!--<div class="panel panel-default" th:each="review : ${movie.reviews}">-->
-        <!--<div class="panel-heading">-->
-            <!--<h3 class="panel-title" th:text="${movie.title}"></h3>-->
-        <!--</div>-->
-        <!--<div class="panel-body">-->
-            <!--<div th:text="${movie.genre}"></div>-->
-            <!--<div th:text="${movie.imdbLink}"></div>-->
-            <!--<div th:text="${movie.releaseDate}"></div>-->
-            <!--<a th:href="'/edit/' + @{${movie.id}}">Edit Movie</a>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="panel panel-default" th:each="review : ${movie.reviews}">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span th:text="${review.reviewername}"></span>
+                ,
+                <span th:switch="${review.rating}">
+                <span th:case="'5 stars'">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                </span>
+                <span th:case="'4 stars'">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </span>
+                <span th:case="'3 stars'">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </span>
+                <span th:case="'2 stars'">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </span>
+                <span th:case="'1 star'">
+                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                </span>
+            </span>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <span th:if="${review.reviewerage}">Age:</span>
+            <span th:text="${review.reviewerage}"></span>
+            <span th:if="${review.reviewerage}">, </span>
+            <span th:if="${review.reviewergender}">Gender:</span>
+            <span th:text="${review.reviewergender}"></span>
+            <span th:if="${review.reviewergender}">, </span>
+            <span th:if="${review.revieweroccupation}">Occupation:</span>
+            <span th:text="${review.revieweroccupation}"></span>
+
+        </div>
+    </div>
 </body>
 </html>

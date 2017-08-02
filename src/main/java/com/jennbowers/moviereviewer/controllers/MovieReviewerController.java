@@ -44,7 +44,7 @@ public class MovieReviewerController {
     }
 
     @RequestMapping("/edit/{movieId}")
-    public String displayEditMovie(@PathVariable("movieId") Long movieId,
+    public String displayEditMovie(@PathVariable("movieId") long movieId,
                             Model model){
         Movie movie = repo.findOne(movieId);
         model.addAttribute("movie", movie);
@@ -52,7 +52,7 @@ public class MovieReviewerController {
     }
 
     @RequestMapping(value = "/edit/{movieId}", method = RequestMethod.POST)
-    public String editMovie(@PathVariable("movieId") Long movieId,
+    public String editMovie(@PathVariable("movieId") long movieId,
                             @RequestParam("title") String title,
                             @RequestParam("genre") String genre,
                             @RequestParam("imdblink") String imdblink,
@@ -68,8 +68,8 @@ public class MovieReviewerController {
         return "detailMovie";
     }
 
-    @RequestMapping("/movie/{movieId}")
-    public String detailMovie(@PathVariable("movieId") Long movieId,
+    @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.GET)
+    public String detailMovie(@PathVariable("movieId") long movieId,
                                      Model model) {
         Movie movie = repo.findOne(movieId);
         model.addAttribute("movie", movie);
@@ -77,7 +77,7 @@ public class MovieReviewerController {
     }
 
     @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.POST)
-    public String leaveReview(@PathVariable("movieId") Long movieId,
+    public String leaveReview(@PathVariable("movieId") long movieId,
                               @RequestParam("reviewername") String reviewername,
                               @RequestParam("rating") String rating,
                               @RequestParam("reviewerage") String reviewerage,
@@ -86,10 +86,18 @@ public class MovieReviewerController {
         Integer reviewerAgeInt;
         if (reviewerage.equals("")) {
             reviewerAgeInt = null;
-
         } else {
             reviewerAgeInt = Integer.parseInt(reviewerage);
         }
+
+        if (reviewergender.equals("")) {
+            reviewergender = null;
+        }
+
+        if (revieweroccupation.equals("")) {
+            revieweroccupation = null;
+        }
+
         Movie movie = repo.findOne(movieId);
         Review newReview = new Review(reviewername, rating, reviewerAgeInt, reviewergender, revieweroccupation, movie);
         reviewRepo.save(newReview);
