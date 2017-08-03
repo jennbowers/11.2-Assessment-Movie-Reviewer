@@ -2,24 +2,80 @@
     box-sizing: border-box;
 }
 
-body {
-    padding-top: 70px;
+hr {
+    width: 100%;
 }
 
+/*index*/
 .movie-panel {
-    height: 250px;
+    height: 508px;
+}
+
+.panel-body-index{
+    text-align: center;
+}
+
+.movie-poster-index {
+    padding-bottom: 15px;
+}
+
+.movie-info {
+    padding-bottom: 15px;
+}
+
+.edit-btn {
+    float: right;
+    margin-top: 3px;
+}
+
+.movie-title {
+    float: left;
+    vertical-align: middle;
+    padding-top: 7px;
+}
+
+.panel-heading {
+    height: 55px;
+}
+
+/*detail movie*/
+.panel-detail {
+    width: 65%;
+    margin-left: 19%;
+}
+
+.panel-title-detail {
+    padding-top: 7px;
+}
+
+.movie-poster-detail {
+    float: left;
+}
+
+.movie-info-detail{
+    text-align: center;
+    padding-top: 75px;
+    padding-left: 15px;
+}
+
+.imdb-link-detail {
+    float: right;
+    text-align: center;
+    margin-top: 111px;
+    width: 72%;
 }
 
 .rating-header {
     font-weight: 600;
+    padding-left: 52px;
 }
 
-hr {
-    width: 100%;
+.stars-radio-group {
+    padding-left: 24px;
 }
 
 .review, .write-review {
     padding-right: 0px;
     float: right;
-    width: 95%;
+    width: 100%;
 }

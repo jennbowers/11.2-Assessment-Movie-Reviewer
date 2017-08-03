@@ -6,39 +6,65 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
-<body class="container">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">MovieReviewer</a>
+            </div>
 
-            <ul class="nav nav-pills">
-                <li><a href="/">Home</a></li>
-                <li><a href="/addMovie">Add a Movie</a></li>
-            </ul>
-        </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/addMovie">Add a New Movie</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
     </nav>
-    <h1>
-        <span>See the reviews for </span>
-        <span th:text="${movie.title}"></span>
-    </h1>
-    <div class="panel panel-danger">
-        <div class="panel-heading">
-            <h3 class="panel-title" th:text="${movie.title}"></h3>
-        </div>
-        <div class="panel-body">
-            <div th:text="${movie.genre}"></div>
-            <div th:text="${movie.imdbLink}"></div>
-            <div th:text="${movie.releaseDate}"></div>
-            <a th:href="'/edit/' + @{${movie.id}}">Edit Movie</a>
-        </div>
-    </div>
-    <!--reviews-->
-    <div class="container review">
-        <div class="panel panel-default" th:each="review : ${movie.reviews}">
+    <div class="container">
+        <!--heading-->
+        <!--<h1>-->
+            <!--<span>See the reviews for </span>-->
+            <!--<span th:text="${movie.title}"></span>-->
+        <!--</h1>-->
+
+        <!--detail of selected movie-->
+        <div class="panel panel-danger panel-detail">
             <div class="panel-heading">
-                <h3 class="panel-title">
-                    <span th:text="${review.reviewername}"></span>
-                    ,
-                    <span th:switch="${review.rating}">
+                <h3 class="panel-title panel-title-detail movie-title" th:text="${movie.title}"></h3>
+                <a class="btn btn-default btn-sm edit-btn" th:href="'/edit/' + @{${movie.id}}">Edit Movie</a>
+            </div>
+            <div class="panel-body">
+                <div class="movie-poster-detail">
+                    <img th:src="${movie.imgurl}" alt="movie-poster"/>
+                </div>
+                <div class="movie-info-detail">
+                    <div th:text="${movie.genre}"></div>
+                    <div th:text="${movie.releaseDate}"></div>
+                </div>
+                <div class="list-group">
+                    <a type="button" class="list-group-item imdb-link-detail" th:href="${movie.imdbLink}">Check it out on IMDB</a>
+                </div>
+            </div>
+        </div>
+        <hr/>
+
+        <!--reviews-->
+        <div class="container review">
+            <div class="panel panel-warning panel-detail" th:each="review : ${movie.reviews}">
+                <div class="panel-heading">
+                    <h3 class="panel-title panel-title-detail">
+                        <span th:text="${review.reviewername}"></span>
+                        ,
+                        <span th:switch="${review.rating}">
                 <span th:case="'5 stars'">
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -75,105 +101,115 @@
                     <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
                 </span>
             </span>
-                </h3>
-            </div>
-            <div class="panel-body">
-                <span th:if="${review.reviewerage}">Age:</span>
-                <span th:text="${review.reviewerage}"></span>
-                <span th:if="${review.reviewerage}">, </span>
-                <span th:if="${review.reviewergender}">Gender:</span>
-                <span th:text="${review.reviewergender}"></span>
-                <span th:if="${review.reviewergender}">, </span>
-                <span th:if="${review.revieweroccupation}">Occupation:</span>
-                <span th:text="${review.revieweroccupation}"></span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <span th:if="${review.reviewerage}">Age:</span>
+                    <span th:text="${review.reviewerage}"></span>
+                    <span th:if="${review.reviewerage}">, </span>
+                    <span th:if="${review.reviewergender}">Gender:</span>
+                    <span th:text="${review.reviewergender}"></span>
+                    <span th:if="${review.reviewergender}">, </span>
+                    <span th:if="${review.revieweroccupation}">Occupation:</span>
+                    <span th:text="${review.revieweroccupation}"></span>
 
+                </div>
+            </div>
+        </div>
+        <hr/>
+
+        <!--Write a review-->
+        <div class="container write-review">
+            <div class="panel panel-default panel-detail">
+                <div class="panel-heading">
+                    <h3 class="panel-title panel-title-detail">Write a New Review</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" method="post" th:action="'/movie/' + ${movie.id}">
+                        <div class="form-group">
+                            <label for="reviewername" class="col-sm-2 control-label">Name*:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="reviewername" class="form-control" id="reviewername" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span>
+                                <label for="stars-radio-group" class="rating-header">Rating*:</label>
+                            </span>
+                            <span class="stars-radio-group" id="stars-radio-group">
+                                <label class="radio-inline">
+                                    <input type="radio" name="rating" id="onestar" value="1 star"/>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="rating" id="twostars" value="2 stars"/>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="rating" id="threestars" value="3 stars"/>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="rating" id="fourstars" value="4 stars"/>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="rating" id="fivestars" value="5 stars"/>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                </label>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewerage" class="col-sm-2 control-label">Age:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="reviewerage" class="form-control" id="reviewerage" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewergender" class="col-sm-2 control-label">Gender:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="reviewergender" class="form-control" id="reviewergender" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="revieweroccupation" class="col-sm-2 control-label">Occupation:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="revieweroccupation" class="form-control" id="revieweroccupation" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-danger">Post Review</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-    <hr/>
-    <!--Write a review-->
-    <div class="container write-review">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Write a New Review</h3>
-            </div>
-            <div class="panel-body">
-                <form class="form-horizontal" method="post" th:action="'/movie/' + ${movie.id}">
-                    <div class="form-group">
-                        <label for="reviewername" class="col-sm-2 control-label">Name*:</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="reviewername" class="form-control" id="reviewername" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <p class="rating-header">Rating*:</p>
-                        <label class="radio-inline">
-                            <input type="radio" name="rating" id="onestar" value="1 star"/>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="rating" id="twostars" value="2 stars"/>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="rating" id="threestars" value="3 stars"/>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="rating" id="fourstars" value="4 stars"/>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" name="rating" id="fivestars" value="5 stars"/>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label for="reviewerage" class="col-sm-2 control-label">Age:</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="reviewerage" class="form-control" id="reviewerage" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="reviewergender" class="col-sm-2 control-label">Gender:</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="reviewergender" class="form-control" id="reviewergender" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="revieweroccupation" class="col-sm-2 control-label">Occupation:</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="revieweroccupation" class="form-control" id="revieweroccupation" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Post Review</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
+    <!--scripts-->
+    <script type="application/javascript" th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <script type="application/javascript" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </body>
 </html>

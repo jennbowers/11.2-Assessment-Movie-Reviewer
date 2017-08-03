@@ -37,8 +37,9 @@ public class MovieReviewerController {
     public String addMovie(@RequestParam ("title") String title,
                            @RequestParam ("genre") String genre,
                            @RequestParam ("imdblink") String imdblink,
-                           @RequestParam ("releasedate") String releasedate){
-        Movie newMovie = new Movie(title, genre, imdblink, releasedate);
+                           @RequestParam ("releasedate") String releasedate,
+                           @RequestParam ("imgurl") String imgurl){
+        Movie newMovie = new Movie(title, genre, imdblink, releasedate, imgurl);
         repo.save(newMovie);
         return "redirect:/";
     }
@@ -57,12 +58,14 @@ public class MovieReviewerController {
                             @RequestParam("genre") String genre,
                             @RequestParam("imdblink") String imdblink,
                             @RequestParam("releasedate") String releasedate,
+                            @RequestParam("imgurl") String imgurl,
                             Model model){
         Movie movie = repo.findOne(movieId);
         movie.setTitle(title);
         movie.setGenre(genre);
         movie.setImdbLink(imdblink);
         movie.setReleasedate(releasedate);
+        movie.setImgurl(imgurl);
         repo.save(movie);
         model.addAttribute("movie", movie);
         return "detailMovie";
