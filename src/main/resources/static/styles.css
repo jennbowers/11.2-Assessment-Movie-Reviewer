@@ -6,6 +6,11 @@ hr {
     width: 100%;
 }
 
+.logout-btn, .logout-btn:active, .logout-btn:hover {
+    margin-top: 7px;
+    text-decoration: none;
+}
+
 /*index*/
 .movie-panel {
     height: 508px;
