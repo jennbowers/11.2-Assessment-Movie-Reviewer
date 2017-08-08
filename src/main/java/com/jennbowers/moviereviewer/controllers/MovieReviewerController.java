@@ -2,6 +2,7 @@ package com.jennbowers.moviereviewer.controllers;
 
 import com.jennbowers.moviereviewer.interfaces.MovieRepository;
 import com.jennbowers.moviereviewer.interfaces.ReviewRepository;
+import com.jennbowers.moviereviewer.interfaces.UserRepository;
 import com.jennbowers.moviereviewer.models.Movie;
 import com.jennbowers.moviereviewer.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class MovieReviewerController {
 
     @Autowired
     ReviewRepository reviewRepo;
+
+    @Autowired
+    UserRepository userRepo;
 
     @RequestMapping("/")
     public String index(Model model) {
