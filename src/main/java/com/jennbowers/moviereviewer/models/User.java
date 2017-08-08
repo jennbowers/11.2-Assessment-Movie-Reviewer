@@ -22,18 +22,23 @@ public class User implements UserDetails{
     private String username;
     private String password;
 
+    @OneToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     public User() {}
 
-    public User(String name, int age, String gender, String occupation, String username, String password, List<Review> reviews) {
+    public User(String name, int age, String gender, String occupation, String username, String password, Role role, List<Review> reviews) {
         this.name = name;
         this.age = age;
         this.gender = gender;
         this.occupation = occupation;
         this.username = username;
         this.password = password;
+        this.role = role;
         this.reviews = reviews;
     }
 
@@ -101,9 +106,19 @@ public class User implements UserDetails{
         this.reviews = reviews;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        return authorities;
     }
 
     @Override

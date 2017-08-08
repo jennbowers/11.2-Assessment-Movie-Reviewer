@@ -83,32 +83,32 @@ public class MovieReviewerController {
         return "detailMovie";
     }
 
-    @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.POST)
-    public String leaveReview(@PathVariable("movieId") long movieId,
-                              @RequestParam("reviewername") String reviewername,
-                              @RequestParam("rating") String rating,
-                              @RequestParam("reviewerage") String reviewerage,
-                              @RequestParam("reviewergender") String reviewergender,
-                              @RequestParam("revieweroccupation") String revieweroccupation) {
-        Integer reviewerAgeInt;
-        if (reviewerage.equals("")) {
-            reviewerAgeInt = null;
-        } else {
-            reviewerAgeInt = Integer.parseInt(reviewerage);
-        }
-
-        if (reviewergender.equals("")) {
-            reviewergender = null;
-        }
-
-        if (revieweroccupation.equals("")) {
-            revieweroccupation = null;
-        }
-
-        Movie movie = repo.findOne(movieId);
-        Review newReview = new Review(reviewername, rating, reviewerAgeInt, reviewergender, revieweroccupation, movie);
-        reviewRepo.save(newReview);
-        return "redirect:/movie/" + movieId;
-    }
+//    @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.POST)
+//    public String leaveReview(@PathVariable("movieId") long movieId,
+//                              @RequestParam("reviewername") String reviewername,
+//                              @RequestParam("rating") String rating,
+//                              @RequestParam("reviewerage") String reviewerage,
+//                              @RequestParam("reviewergender") String reviewergender,
+//                              @RequestParam("revieweroccupation") String revieweroccupation) {
+//        Integer reviewerAgeInt;
+//        if (reviewerage.equals("")) {
+//            reviewerAgeInt = null;
+//        } else {
+//            reviewerAgeInt = Integer.parseInt(reviewerage);
+//        }
+//
+//        if (reviewergender.equals("")) {
+//            reviewergender = null;
+//        }
+//
+//        if (revieweroccupation.equals("")) {
+//            revieweroccupation = null;
+//        }
+//
+//        Movie movie = repo.findOne(movieId);
+//        Review newReview = new Review(reviewername, rating, reviewerAgeInt, reviewergender, revieweroccupation, movie);
+//        reviewRepo.save(newReview);
+//        return "redirect:/movie/" + movieId;
+//    }
 
 }
