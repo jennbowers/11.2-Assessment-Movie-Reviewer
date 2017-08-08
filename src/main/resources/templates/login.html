@@ -9,7 +9,7 @@
     <div style="color: red;" th:text="${error}"></div>
     <form th:action="@{/login}" th:object="${user}" method="post">
         <input type="text" th:field="*{username}" placeholder="Username"/>
-        <input type="text" th:field="*{password}" placeholder="Password"/>
+        <input type="password" th:field="*{password}" placeholder="Password"/>
         <input type="submit" value="Login!"/>
     </form>
 </body>

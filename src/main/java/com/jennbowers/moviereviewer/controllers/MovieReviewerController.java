@@ -5,6 +5,7 @@ import com.jennbowers.moviereviewer.interfaces.ReviewRepository;
 import com.jennbowers.moviereviewer.interfaces.UserRepository;
 import com.jennbowers.moviereviewer.models.Movie;
 import com.jennbowers.moviereviewer.models.Review;
+import com.jennbowers.moviereviewer.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 
 @Controller
 public class MovieReviewerController {
@@ -48,7 +51,7 @@ public class MovieReviewerController {
         return "redirect:/";
     }
 
-    @RequestMapping("/edit/{movieId}")
+    @RequestMapping(value = "/edit/{movieId}", method = RequestMethod.GET)
     public String displayEditMovie(@PathVariable("movieId") long movieId,
                             Model model){
         Movie movie = repo.findOne(movieId);
@@ -83,32 +86,17 @@ public class MovieReviewerController {
         return "detailMovie";
     }
 
-//    @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.POST)
-//    public String leaveReview(@PathVariable("movieId") long movieId,
-//                              @RequestParam("reviewername") String reviewername,
-//                              @RequestParam("rating") String rating,
-//                              @RequestParam("reviewerage") String reviewerage,
-//                              @RequestParam("reviewergender") String reviewergender,
-//                              @RequestParam("revieweroccupation") String revieweroccupation) {
-//        Integer reviewerAgeInt;
-//        if (reviewerage.equals("")) {
-//            reviewerAgeInt = null;
-//        } else {
-//            reviewerAgeInt = Integer.parseInt(reviewerage);
-//        }
-//
-//        if (reviewergender.equals("")) {
-//            reviewergender = null;
-//        }
-//
-//        if (revieweroccupation.equals("")) {
-//            revieweroccupation = null;
-//        }
-//
-//        Movie movie = repo.findOne(movieId);
-//        Review newReview = new Review(reviewername, rating, reviewerAgeInt, reviewergender, revieweroccupation, movie);
-//        reviewRepo.save(newReview);
-//        return "redirect:/movie/" + movieId;
-//    }
+    @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.POST)
+    public String leaveReview(@PathVariable("movieId") long movieId,
+                              @RequestParam("rating") String rating,
+                              Principal principal) {
+        String username = principal.getName();
+        User user = userRepo.findByUsername(username);
+
+        Movie movie = repo.findOne(movieId);
+        Review newReview = new Review(rating, movie, user);
+        reviewRepo.save(newReview);
+        return "redirect:/movie/" + movieId;
+    }
 
 }

@@ -58,11 +58,11 @@
         <hr/>
 
         <!--reviews-->
-        <div class="container review">
-            <div class="panel panel-warning panel-detail" th:each="review : ${movie.reviews}">
+        <div class="container review" th:each="review : ${movie.reviews}">
+            <div class="panel panel-warning panel-detail">
                 <div class="panel-heading">
                     <h3 class="panel-title panel-title-detail">
-                        <span th:text="${review.reviewername}"></span>
+                        <span th:text="${review.user.name}"></span>
                         ,
                         <span th:switch="${review.rating}">
                 <span th:case="'5 stars'">
@@ -104,15 +104,14 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <span th:if="${review.reviewerage}">Age:</span>
-                    <span th:text="${review.reviewerage}"></span>
-                    <span th:if="${review.reviewerage}">, </span>
-                    <span th:if="${review.reviewergender}">Gender:</span>
-                    <span th:text="${review.reviewergender}"></span>
-                    <span th:if="${review.reviewergender}">, </span>
-                    <span th:if="${review.revieweroccupation}">Occupation:</span>
-                    <span th:text="${review.revieweroccupation}"></span>
-
+                    <span th:if="${review.user.age}">Age:</span>
+                    <span th:text="${review.user.age}"></span>
+                    <span th:if="${review.user.age}">, </span>
+                    <span th:if="${review.user.gender}">Gender:</span>
+                    <span th:text="${review.user.gender}"></span>
+                    <span th:if="${review.user.gender}">, </span>
+                    <span th:if="${review.user.occupation}">Occupation:</span>
+                    <span th:text="${review.user.occupation}"></span>
                 </div>
             </div>
         </div>
@@ -126,12 +125,6 @@
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" method="post" th:action="'/movie/' + ${movie.id}">
-                        <div class="form-group">
-                            <label for="reviewername" class="col-sm-2 control-label">Name*:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="reviewername" class="form-control" id="reviewername" />
-                            </div>
-                        </div>
                         <div class="form-group">
                             <span>
                                 <label for="stars-radio-group" class="rating-header">Rating*:</label>
@@ -178,24 +171,6 @@
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 </label>
                             </span>
-                        </div>
-                        <div class="form-group">
-                            <label for="reviewerage" class="col-sm-2 control-label">Age:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="reviewerage" class="form-control" id="reviewerage" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="reviewergender" class="col-sm-2 control-label">Gender:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="reviewergender" class="form-control" id="reviewergender" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="revieweroccupation" class="col-sm-2 control-label">Occupation:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="revieweroccupation" class="form-control" id="revieweroccupation" />
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
