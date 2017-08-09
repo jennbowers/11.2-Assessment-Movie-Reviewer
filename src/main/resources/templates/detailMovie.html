@@ -31,12 +31,6 @@
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container">
-        <!--heading-->
-        <!--<h1>-->
-            <!--<span>See the reviews for </span>-->
-            <!--<span th:text="${movie.title}"></span>-->
-        <!--</h1>-->
-
         <!--detail of selected movie-->
         <div class="panel panel-danger panel-detail">
             <div class="panel-heading">
@@ -119,18 +113,22 @@
         <hr/>
 
         <!--Write a review-->
-        <div class="container write-review">
-            <div class="panel panel-default panel-detail">
-                <div class="panel-heading">
-                    <h3 class="panel-title panel-title-detail">Write a New Review</h3>
-                </div>
-                <div class="panel-body">
-                    <form class="form-horizontal" method="post" th:action="'/movie/' + ${movie.id}">
-                        <div class="form-group">
+        <div th:if="${user == null}" class="review-login-btn">
+            <a href="/login" type="button" class="btn btn-danger btn-lg">Log in to leave a review!</a>
+        </div>
+        <div th:if="${user != null}">
+            <div class="container write-review">
+                <div class="panel panel-default panel-detail">
+                    <div class="panel-heading">
+                        <h3 class="panel-title panel-title-detail">Write a New Review</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="post" th:action="'/movie/' + ${movie.id}">
+                            <div class="form-group">
                             <span>
                                 <label for="stars-radio-group" class="rating-header">Rating*:</label>
                             </span>
-                            <span class="stars-radio-group" id="stars-radio-group">
+                                <span class="stars-radio-group" id="stars-radio-group">
                                 <label class="radio-inline">
                                     <input type="radio" name="rating" id="onestar" value="1 star"/>
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -172,13 +170,14 @@
                                     <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 </label>
                             </span>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-danger">Post Review</button>
                             </div>
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-danger">Post Review</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

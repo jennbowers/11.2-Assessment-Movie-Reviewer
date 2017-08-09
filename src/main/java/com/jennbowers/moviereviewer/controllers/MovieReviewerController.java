@@ -80,9 +80,19 @@ public class MovieReviewerController {
 
     @RequestMapping(value = "/movie/{movieId}", method = RequestMethod.GET)
     public String detailMovie(@PathVariable("movieId") long movieId,
-                                     Model model) {
+                              Model model,
+                              Principal principal) {
         Movie movie = repo.findOne(movieId);
         model.addAttribute("movie", movie);
+
+        try {
+            String username = principal.getName();
+            User user = userRepo.findByUsername(username);
+            model.addAttribute("user", user);
+        } catch (Exception ex) {
+//            return "redirect:/login";
+        }
+
         return "detailMovie";
     }
 
